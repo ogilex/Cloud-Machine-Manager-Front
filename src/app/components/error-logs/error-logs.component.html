@@ -1,0 +1,19 @@
+<div>
+    <table>
+      <thead>
+        <tr>
+          <th>Error Date</th>
+          <th>Machine ID</th>
+          <th>Operation Name</th>
+          <th>Error Message</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let error of errorLogs">
+          <td>{{ error.errorDate | date:'short' }}</td>
+          <td>{{ error.machineId }}</td>
+          <td>{{ error.operationName }}</td>
+          <td>{{ error.errorMessage }}</td>
+        </tr>
+    </table>
+  </div>

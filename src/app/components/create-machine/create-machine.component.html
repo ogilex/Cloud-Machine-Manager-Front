@@ -1,0 +1,16 @@
+<div>
+    <div *ngIf="userService.permissions.canCreateMachine == 1">
+      <h2>Create new machine</h2>
+      <form (ngSubmit)="createMachine()">
+        <div>
+          <label>Machine name</label>
+          <input type="text" name="machineName" [(ngModel)]="machineName">
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  
+    <div *ngIf="userService.permissions.canCreateMachine == 0">
+      <h2>No permission to create machine</h2>
+    </div>
+  </div>

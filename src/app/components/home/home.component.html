@@ -1,0 +1,52 @@
+<div>
+  <h3 *ngIf="!hasPermission;else table">No permission to read users.</h3>
+  <ng-template #table>
+    <table style="border: 1px solid black;">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Email</th>
+        <th>Read users</th>
+        <th>Create users</th>
+        <th>Update users</th>
+        <th>Delete users</th>
+        <th>Search machines</th>
+        <th>Start machines</th>
+        <th>Stop machines</th>
+        <th>Restart machines</th>
+        <th>Create machines</th>
+        <th>Destroy machines</th>
+        <th *ngIf="canDelete">Delete Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of userList">
+        <td>{{ user.name }}</td>
+        <td>{{ user.surname }}</td>
+        <td>
+          <a *ngIf="canUpdate == 1;else noEdit" [routerLink]="['/edit', user.id]">{{ user.email }}</a>
+          <ng-template #noEdit>{{ user.email }}</ng-template>
+        </td>
+        <td><span *ngIf="user.permission.canReadUser == 1; else no">YES</span></td>
+        <td><span *ngIf="user.permission.canCreateUser == 1; else no">YES</span></td>
+        <td><span *ngIf="user.permission.canUpdateUser == 1; else no">YES</span></td>
+        <td><span *ngIf="user.permission.canDeleteUser == 1; else no">YES</span></td>
+        <td><span *ngIf="user.permission.canSearchMachine == 1; else no">YES</span></td>
+        <td><span *ngIf="user.permission.canStartMachine == 1; else no">YES</span></td>
+        <td><span *ngIf="user.permission.canStopMachine == 1; else no">YES</span></td>
+        <td><span *ngIf="user.permission.canRestartMachine == 1; else no">YES</span></td>
+        <td><span *ngIf="user.permission.canCreateMachine == 1; else no">YES</span></td>
+        <td><span *ngIf="user.permission.canDestroyMachine == 1; else no">YES</span></td>
+        <td *ngIf="canDelete">
+          <button (click)="handleDelete(user.id)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </ng-template>
+
+  <ng-template #no>
+    NO
+  </ng-template>
+</div>

@@ -1,0 +1,72 @@
+<div>
+  <div>
+    <h3 *ngIf="userService.permissions.canCreateUser == 0">No permission to create user</h3>
+    <div *ngIf="userService.permissions.canCreateUser == 1">
+      <h1>Create user</h1>
+      <form [formGroup]="newUserForm" (ngSubmit)="handleSubmit()">
+        <fieldset>
+          <div>
+            <label>Name</label>
+            <input type="text" formControlName="name" placeholder="Enter name">
+          </div>
+          <div>
+            <label>Surname</label>
+            <input type="text" formControlName="surname" placeholder="Enter surname">
+          </div>
+          <div>
+            <label>E-mail</label>
+            <input type="email" formControlName="email" placeholder="Enter email">
+          </div>
+          <div>
+            <label>Password</label>
+            <input type="password" formControlName="password">
+          </div>
+          <div formGroupName="permission">
+            <legend>Permissions</legend>
+            <div>
+              <input type="checkbox" formControlName="canReadUser">
+              <label>To read users</label>
+            </div>
+            <div>
+              <input type="checkbox" formControlName="canCreateUser">
+              <label>To create users</label>
+            </div>
+            <div>
+              <input type="checkbox" formControlName="canUpdateUser">
+              <label>To update users</label>
+            </div>
+            <div>
+              <input type="checkbox" formControlName="canDeleteUser">
+              <label>To delete users</label>
+            </div>
+            <div>
+              <input type="checkbox" formControlName="canSearchMachine">
+              <label>To search machines</label>
+            </div>
+            <div>
+              <input type="checkbox" formControlName="canStartMachine">
+              <label>To start machines</label>
+            </div>
+            <div>
+              <input type="checkbox" formControlName="canStopMachine">
+              <label>To stop machines</label>
+            </div>
+            <div>
+              <input type="checkbox" formControlName="canRestartMachine">
+              <label>To restart machines</label>
+            </div>
+            <div>
+              <input type="checkbox" formControlName="canCreateMachine">
+              <label>To create machines</label>
+            </div>
+            <div>
+              <input type="checkbox" formControlName="canDestroyMachine">
+              <label>To destroy machines</label>
+            </div>
+          </div>
+        </fieldset>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

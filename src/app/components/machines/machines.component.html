@@ -1,0 +1,65 @@
+<div>
+    <div *ngIf="userService.permissions.canSearchMachine == 1">
+        <h1>Search Machines</h1>
+        <form (ngSubmit)="search()">
+            <div>
+                <div>
+                    <label>Machine Name</label>
+                    <input type="text" name="machineName" [(ngModel)]="machineNameFilter">
+                </div>
+                <div>
+                    <label>Status</label>
+                    <div>
+                        <input type="checkbox" name="statusRunning" [(ngModel)]="statusRunning">
+                        <label>
+                          RUNNING
+                        </label>
+                      </div>
+                      <div>
+                        <input type="checkbox" name="statusStopped" [(ngModel)]="statusStopped">
+                        <label>
+                          STOPPED
+                        </label>
+                      </div>
+                </div>
+                <div>
+                    <label>Created Between</label>
+                    <div>
+                        <input type="date" placeholder="From" name="dateFrom" [(ngModel)]="dateFrom">
+                        <input type="date" placeholder="To" name="dateTo" [(ngModel)]="dateTo">
+                    </div>
+                </div>
+                <div>
+                    <button type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <div>
+        <div *ngFor="let m of machines">
+            <div style="border: 1px solid black;">
+                <div>
+                    <div>
+                        <h3>{{m.name}}</h3>
+                        <p>Status: {{m.status}}</p>
+                        <p>Created at: {{m.createdAt | date }}</p>
+                    </div>
+                </div>
+                <div>
+                    <button (click)="destroyMachine(m.id)" *ngIf="userService.permissions.canDestroyMachine == 1" [disabled]="m.status == 'RUNNING' || m.operationActive == 1">DESTROY</button>
+                    <button *ngIf="userService.permissions.canStartMachine == 1" [disabled]="m.status == 'RUNNING' || m.operationActive == 1" (click)="startMachine(m.id)">START</button>
+                    <button *ngIf="userService.permissions.canStopMachine == 1" [disabled]="m.status == 'STOPPED' || m.operationActive == 1" (click)="stopMachine(m.id)">STOP</button>
+                    <button *ngIf="userService.permissions.canRestartMachine == 1" [disabled]="m.status == 'STOPPED' || m.operationActive == 1" (click)="restartMachine(m.id)">RESTART</button>
+                </div>
+                <div>
+                    <p>Schedule Operation</p>
+                    <input type="datetime-local" [ngModel]="scheduleDate | date:'yyyy-MM-ddTHH:mm'" (ngModelChange)="scheduleDate = $event">
+                    <button *ngIf="userService.permissions.canStartMachine == 1" (click)="scheduleStartMachine(m.id)">SCHEDULE START</button>
+                    <button *ngIf="userService.permissions.canStopMachine == 1"  (click)="scheduleStopMachine(m.id)">SCHEDULE STOP</button>
+                    <button *ngIf="userService.permissions.canRestartMachine == 1" (click)="scheduleRestartMachine(m.id)">SCHEDULE RESTART</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

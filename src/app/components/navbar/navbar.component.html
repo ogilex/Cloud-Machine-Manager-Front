@@ -1,0 +1,27 @@
+<nav *ngIf="userService.loggedIn">
+  <div>
+    <div>
+      <ul>
+        <li>
+          <a class="nav-link" [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" href="#">Home</a>
+        </li>
+        <li *ngIf="userService.permissions.canCreateUser == 1">
+          <a class="nav-link" [routerLink]="['/create']" routerLinkActive="active"  href="#">Create User</a>
+        </li>
+        <li>
+          <a class="nav-link" [routerLink]="['/machines']" routerLinkActive="active">Machines</a>
+        </li>
+        <li *ngIf="userService.permissions.canCreateMachine == 1">
+          <a class="nav-link" [routerLink]="['/create-machine']" routerLinkActive="active">Create Machine</a>
+        </li>
+        <li>
+          <a class="nav-link" [routerLink]="['/logs']" routerLinkActive="active">Error Logs</a>
+        </li>
+        <li>
+          <a class="nav-link" (click)="logout()">Log out</a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</nav>
